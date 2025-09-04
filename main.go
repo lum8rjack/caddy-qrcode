@@ -12,7 +12,6 @@ import (
 	"github.com/caddyserver/caddy/v2/caddyconfig/caddyfile"
 	"github.com/caddyserver/caddy/v2/caddyconfig/httpcaddyfile"
 	"github.com/caddyserver/caddy/v2/modules/caddyhttp"
-	"go.uber.org/zap"
 )
 
 func init() {
@@ -26,9 +25,8 @@ var (
 
 // QRCode implements an HTTP handler
 type QRCode struct {
-	Param  string
-	Size   int
-	logger *zap.Logger
+	Param string
+	Size  int
 }
 
 // CaddyModule returns the Caddy module information.
@@ -41,8 +39,6 @@ func (QRCode) CaddyModule() caddy.ModuleInfo {
 
 // Provision implements caddy.Provisioner.
 func (q *QRCode) Provision(ctx caddy.Context) error {
-	q.logger = ctx.Logger(q)
-
 	if q.Param == "" {
 		return fmt.Errorf("you must specify a qrcode 'param'")
 	}
